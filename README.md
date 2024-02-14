@@ -1,4 +1,4 @@
-# ADB Automotive Software Instalation Simplicity Tool (ADB-ASIST)
+# ADB Automotive Software Installation Simplicity Tool (ADB-ASIST)
 
 [![GitHub release](https://img.shields.io/github/v/release/GrayStranger/adb-asist)](
 
