@@ -1,7 +1,5 @@
 # ADB Automotive Software Installation Simplicity Tool (ADB-ASIST)
 
-[![GitHub release](https://img.shields.io/github/v/release/GrayStranger/adb-asist)](
-
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Project Description
@@ -53,7 +51,7 @@ brew install python
 ```
 4. Make the folder where you want to work (f.e. `~/MyAutoApps`), go in and clone this repo:
 ```
-git clone...
+git clone https://github.com/GrayStranger/adb-asist.git
 ```
 
 ## Usage
