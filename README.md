@@ -10,7 +10,7 @@ This project implements application management via *Python* script with any Andr
 
 The project is designed to simplify applications installation and management on an Android device, as well as to simplify the process of granting permissions to installed applications.
 
-![ADB-ASIST](./images/main_screen.png)
+![ADB-ASIST](./src/images/main_screen.png)
 
 ### Functionality
 
