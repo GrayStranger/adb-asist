@@ -1,0 +1,1 @@
+Please place in this folder the apk files you want to install on the device.
