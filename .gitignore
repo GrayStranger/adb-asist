@@ -1,3 +1,6 @@
+# ASIST file storages
+Installed/
+toInstall/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -13,7 +13,7 @@ def confirm(package):
         bool: True if the user confirms the uninstallation, False otherwise.
     """
     confirm = input(
-        f"Are you sure you want to uninstall package {package}? (y/n): ")
+        f"Are you sure you want to uninstall package \033[1;33m{package}\033[0m? (y/n): ")
     if confirm.lower() != "y":
         print("Exiting...")
         return False
