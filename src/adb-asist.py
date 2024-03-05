@@ -105,6 +105,12 @@ while True:
     elif option == "7":
         logging.info("Exiting the APK installer tool")
         exit()
+    elif option == "8":
+        logging.info("Displayed help")
+        # print README.md
+        with open("../README.md", "r") as file:
+            print(file.read())
+        input("Press Enter to continue...")
     else:
         logging.warning("Invalid option selected")
         print("Invalid option. Try again.\n")
