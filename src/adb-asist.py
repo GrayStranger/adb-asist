@@ -2,8 +2,8 @@ import os
 import logging
 
 from get_apk import get_apk
-from get_device import get_device
-from get_user import get_user
+from get_device import check_device, check_device_selection
+from get_user import get_user, check_user
 from third_party_packages import install_apk, third_party_packages
 
 
@@ -46,38 +46,26 @@ def show_menu():
     return option
 
 
-def check_user():
-    """
-    Check if the user has been selected before installing the APK.
-
-    Returns:
-        bool: True if the user has been selected, False otherwise.
-    """
-    if user == "please select before install":
-        logging.warning("User not selected before installing APK")
-        print("Please select user before installing APK.")
-        input("Press Enter to continue...")
-        return False
-    return True
-
-
 apk_pack = []
 
 while True:
     option = show_menu()
 
     if option == "1":
-        device = get_device()
+        device = check_device()
         logging.info(f"Selected device: {device}")
         print(f"Selected device: {device}")
         input("Press Enter to continue...")
     elif option == "2":
+        # check if the device is selected and authorized
+        if not check_device_selection(device):
+            continue
         user = get_user()
         logging.info(f"Selected user: {user}")
         print(f"Selected user: {user}")
         input("Press Enter to continue...")
     elif option == "3":
-        if not check_user():
+        if not check_user(user):
             continue
         apk_pack = get_apk(apk_folder)
         if apk_pack is not None:

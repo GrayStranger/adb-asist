@@ -16,6 +16,18 @@ def get_device():
     # Parse the output to extract the device IDs
     devices = [line.split("\t")[0] for line in output.split("\n")[1:]]
 
+# outout format:
+# List of devices attached
+# emulator-5554   unauthorized
+# emulator-5555   device
+
+# throw message if any of the device is unauthorized
+    for line in output.split("\n")[1:]:
+        if "unauthorized" in line:
+            print("Unauthorized device found. Exiting...")
+            logging.info("Unauthorized device found. Exiting...")
+            return 'Unauthorized Device Found'
+
     if not devices:
         print("No devices found. Exiting...")
         logging.info("No devices found. Exiting...")
@@ -49,3 +61,44 @@ def get_device():
     device = devices[device_index]
 
     return device
+
+# check if the device is selected or not
+
+
+def check_device():
+    """
+    Check the status of the device.
+
+    Returns:
+        str: The status of the device. Possible values are:
+            - 'Unauthorized Device Found' if an unauthorized device is found.
+            - 'No Devices Found' if no devices are found.
+            - The device name if a valid device is found.
+    """
+    device = get_device()
+    if device == 'Unauthorized Device Found':
+        return 'Unauthorized Device Found'
+    elif device == 'No Devices Found':
+        return 'No Devices Found'
+    else:
+        return device
+
+
+def check_device_selection(device):
+    """
+    Checks if the device has been selected before selecting the user.
+
+    Args:
+        device (str): The current device status.
+
+    Returns:
+        bool: True if the device has been selected, False otherwise.
+    """
+    if device == "please check" or device == "Unauthorized Device Found" or device == "No Devices Found":
+        print("Please select device first.")
+        print(f"Current device (status): {device}")
+        logging.warning(
+            "Device not selected before selecting user or unauthorized device found.")
+        input("Press Enter to continue...")
+        return False
+    return True

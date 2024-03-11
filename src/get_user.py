@@ -46,3 +46,18 @@ def get_user():
 
     user = users[user_index]
     return user
+
+
+def check_user(user):
+    """
+    Check if the user has been selected before installing the APK.
+
+    Returns:
+        bool: True if the user has been selected, False otherwise.
+    """
+    if user == "please select before install":
+        logging.warning("User not selected before installing APK")
+        print("Please select user before installing APK.")
+        input("Press Enter to continue...")
+        return False
+    return True
