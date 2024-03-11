@@ -15,6 +15,7 @@ apk_folder = "../toInstall"
 installed_folder = "../installed"
 device = "please check"
 user = "please select before install"
+apk_pack = []
 
 
 def show_menu():
@@ -46,8 +47,6 @@ def show_menu():
     return option
 
 
-apk_pack = []
-
 while True:
     option = show_menu()
 
@@ -65,7 +64,7 @@ while True:
         print(f"Selected user: {user}")
         input("Press Enter to continue...")
     elif option == "3":
-        if not check_user(user):
+        if not check_user(user, option):
             continue
         apk_pack = get_apk(apk_folder)
         if apk_pack is not None:
@@ -73,19 +72,19 @@ while True:
             logging.info("APK installed successfully")
         input("Press Enter to continue...")
     elif option == "4":
-        if not check_user():
+        if not check_user(user, option):
             continue
         third_party_packages(user, permission='INSTALL')
         logging.info("Granted 'request install' permission to the app")
         input("Press Enter to continue...")
     elif option == "5":
-        if not check_user():
+        if not check_user(user, option):
             continue
         third_party_packages(user, permission='SYSTEM_ALERT_WINDOW')
         logging.info("Granted 'System alert' permission to the app")
         input("Press Enter to continue...")
     elif option == "6":
-        if not check_user():
+        if not check_user(user, option):
             continue
         third_party_packages(user, permission='UNINSTALL')
         logging.info("Uninstalled APK")
