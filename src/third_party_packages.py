@@ -20,7 +20,7 @@ def confirm(package):
     return True
 
 
-def third_party_packages(user, permission):
+def third_party_packages(user, device, permission):
     """
     Lists installed third-party packages on an Android device and performs actions based on the specified permission.
 
@@ -31,7 +31,7 @@ def third_party_packages(user, permission):
     Returns:
         None
     """
-    adb_command = "adb shell pm list packages -3 -f"
+    adb_command = f"adb -s {device} shell pm list packages -3 -f"
     output = subprocess.check_output(adb_command.split()).decode().strip()
 
     package_names = [line.split("=")[-1] for line in output.split("\n")]
@@ -52,15 +52,15 @@ def third_party_packages(user, permission):
         return
 
     if permission == 'INSTALL':
-        permission_command = f"adb shell appops set --user {user} {package} REQUEST_INSTALL_PACKAGES allow"
+        permission_command = f"adb -s {device} shell appops set --user {user} {package} REQUEST_INSTALL_PACKAGES allow"
         output = subprocess.check_output(
             permission_command.split()).decode().strip()
     elif permission == 'SYSTEM_ALERT_WINDOW':
-        permission_command = f"adb shell pm grant --user {user} {package} android.permission.SYSTEM_ALERT_WINDOW"
+        permission_command = f"adb -s {device} shell pm grant --user {user} {package} android.permission.SYSTEM_ALERT_WINDOW"
         output = subprocess.check_output(
             permission_command.split()).decode().strip()
     elif permission == 'UNINSTALL':
-        permission_command = f"adb uninstall --user {user} {package}"
+        permission_command = f"adb -s {device} uninstall --user {user} {package}"
         if not confirm(package):
             return
         output = subprocess.check_output(
@@ -89,7 +89,7 @@ def third_party_packages(user, permission):
                 f"Permission \033[1;32msuccessfully\033[0m granted to package {package}.")
 
 
-def install_apk(user, apk_folder, apk_list, installed_folder):
+def install_apk(user, apk_folder, apk_list, installed_folder, device):
     """
     Installs APK files on an Android device using ADB.
 
@@ -103,9 +103,9 @@ def install_apk(user, apk_folder, apk_list, installed_folder):
         None
     """
     if user != "All":
-        command_prefix = f"adb install -g -r --user {user}"
+        command_prefix = f"adb -s {device} install -g -r --user {user}"
     else:
-        command_prefix = "adb install -g -r"
+        command_prefix = f"adb -s {device} install -g -r"
     for apk in apk_list:
         install_command = f"{command_prefix} \'{apk_folder}/{apk}\'"
         install_output = subprocess.check_output(

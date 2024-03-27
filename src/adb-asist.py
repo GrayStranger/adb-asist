@@ -59,34 +59,42 @@ while True:
         # check if the device is selected and authorized
         if not check_device_selection(device):
             continue
-        user = get_user()
+        user = get_user(device)
         logging.info(f"Selected user: {user}")
         print(f"Selected user: {user}")
         input("Press Enter to continue...")
     elif option == "3":
+        if not check_device_selection(device):
+            continue
         if not check_user(user, option):
             continue
         apk_pack = get_apk(apk_folder)
         if apk_pack is not None:
-            install_apk(user, apk_folder, apk_pack, installed_folder)
+            install_apk(user, apk_folder, apk_pack, installed_folder, device)
             logging.info("APK installed successfully")
         input("Press Enter to continue...")
     elif option == "4":
+        if not check_device_selection(device):
+            continue
         if not check_user(user, option):
             continue
-        third_party_packages(user, permission='INSTALL')
+        third_party_packages(user, device, permission='INSTALL')
         logging.info("Granted 'request install' permission to the app")
         input("Press Enter to continue...")
     elif option == "5":
+        if not check_device_selection(device):
+            continue
         if not check_user(user, option):
             continue
-        third_party_packages(user, permission='SYSTEM_ALERT_WINDOW')
+        third_party_packages(user, device, permission='SYSTEM_ALERT_WINDOW')
         logging.info("Granted 'System alert' permission to the app")
         input("Press Enter to continue...")
     elif option == "6":
+        if not check_device_selection(device):
+            continue
         if not check_user(user, option):
             continue
-        third_party_packages(user, permission='UNINSTALL')
+        third_party_packages(user, device, permission='UNINSTALL')
         logging.info("Uninstalled APK")
         input("Press Enter to continue...")
     elif option == "7":

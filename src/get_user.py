@@ -2,7 +2,7 @@ import subprocess
 import logging
 
 
-def get_user():
+def get_user(device):
     """
     Retrieves the user ID from the list of users on the selected device.
 
@@ -10,7 +10,7 @@ def get_user():
         str: The user ID chosen by the user.
     """
     # Execute adb shell command to get the list of users
-    adb_command = "adb shell pm list users"
+    adb_command = f"adb -s {device} shell pm list users"
     output = subprocess.check_output(adb_command.split()).decode().strip()
 
     # Parse the output to extract the user IDs
